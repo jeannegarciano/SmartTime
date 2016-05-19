@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:id="@+id/nav_profile"
+
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_contacts"
+
+            android:title="Contacts" />
+        <item
+            android:id="@+id/nav_events"
+
+            android:title="Events" />
+        <item
+            android:id="@+id/nav_receivedEvents"
+
+            android:title="Received Events" />
+
+        <item
+            android:id="@+id/nav_sentEvents"
+
+            android:title="Sent Events" />
+        <item
+            android:id="@+id/nav_logout"
+
+            android:title="Logout"/>
+
+    </group>
+</menu>
