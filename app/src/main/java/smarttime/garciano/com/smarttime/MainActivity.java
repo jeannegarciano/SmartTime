@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView emailAddress;
     private TextView pass;
     Firebase mRef;
+    public static String username;
 
 
 
@@ -40,10 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userName = (TextView) findViewById(R.id.username);
+        //userName = (TextView) findViewById(R.id.username);
         emailAddress = (TextView) findViewById(R.id.emailaddress);
         pass = (TextView) findViewById(R.id.password);
-        mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/");
+
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -70,10 +71,24 @@ public class MainActivity extends AppCompatActivity {
         dlDrawer.setDrawerListener(drawerToggle);
 
 
+        Firebase.setAndroidContext(this);
+        userName = (TextView) findViewById(R.id.username);
+        mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/username");
+
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String SuperData = (String) dataSnapshot.getValue();
+                userName.setText(SuperData);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
     }
-
-
-
 
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -135,30 +150,45 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        Firebase messagesRef = mRef.child("username");
-       // mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/");
-        messagesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String username = dataSnapshot.getValue(String.class);
-                Log.v("E_VALUE", username);
-                userName.setText(username);
-                // emailAddress.setText(data);
-                //pass.setText(data);
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        Firebase mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/username");
+//        //Firebase messagesRef = mRef.child("username");
+//       // mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/");
+//        mRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//               // String username = dataSnapshot.getValue(String.class);
+//                for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
+//                {
+//                  Retrievedata username = postSnapshot.child("username").getValue(Retrievedata.class);
+//                    userName.setText("username");
+//                }
+//                Log.v("E_VALUE", username);
+//                //userName.setText(dataSnapshot.getValue(String.class));
+//                // emailAddress.setText(data);
+//                //pass.setText(data);
+//
+//            }
+///*
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                System.out.println("There are " + snapshot.getChildrenCount() + " blog posts");
+//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+//                    BlogPost post = postSnapshot.getValue(BlogPost.class);
+//                    System.out.println(post.getAuthor() + " - " + post.getTitle());
+//                }
+//            }
+//*/
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+//
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -26,31 +26,6 @@ public class RetrieveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-
-        userName = (TextView) findViewById(R.id.username);
-        emailAddress = (TextView) findViewById(R.id.emailaddress);
-        pass = (TextView) findViewById(R.id.password);
-
-        mRef = new Firebase("https://torrid-inferno-6852.firebaseio.com/");
-        mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                userName.setText(text);
-                // emailAddress.setText(data);
-                //pass.setText(data);
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-    }
 
 }
